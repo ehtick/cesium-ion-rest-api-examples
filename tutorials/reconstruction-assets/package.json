@@ -18,7 +18,8 @@
     "url": "https://github.com/CesiumGS/cesium-ion-rest-api-examples"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.864.0"
+    "@aws-sdk/client-s3": "^3.864.0",
+    "@aws-sdk/lib-storage": "^3.864.0"
   },
   "scripts": {
     "start": "node index.js"

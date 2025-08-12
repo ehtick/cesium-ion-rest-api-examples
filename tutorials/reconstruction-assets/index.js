@@ -1,6 +1,7 @@
 "use strict";
 
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client } = require("@aws-sdk/client-s3");
+const { Upload } = require("@aws-sdk/lib-storage");
 const { createReadStream } = require("fs");
 
 // Replace <your_access_token> below with a token from your ion account.
@@ -111,12 +112,19 @@ async function main() {
       sessionToken: uploadLocation.sessionToken,
     },
   });
-  const command = new PutObjectCommand({
-    Bucket: uploadLocation.bucket,
-    Key: `${uploadLocation.prefix}images.zip`,
-    Body: createReadStream(input),
+  const upload = new Upload({
+    client: s3Client,
+    params: {
+      Bucket: uploadLocation.bucket,
+      Key: `${uploadLocation.prefix}images.zip`,
+      Body: createReadStream(input),
+    },
   });
-  await s3Client.send(command);
+  upload.on("httpUploadProgress", (progress) => {
+    const percentage = Math.round((progress.loaded / progress.total) * 100);
+    console.log(`Upload progress: ${percentage}%`);
+  });
+  await upload.done();
 
   // Step 3 Tell ion we are done uploading files.
   const onComplete = responseJson.onComplete;
