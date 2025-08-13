@@ -9,19 +9,17 @@ const { createReadStream } = require("fs");
 // Tokens page: https://cesium.com/ion/tokens
 const accessToken = "<your-access-token-here>";
 
-// Sample data is already included in this repository, but you can modify the below
-// path to point to any CityGML data you would like to upload.
-const input = "images.zip";
+// Sample data from https://cesium.com/learn/3d-tiling/reconstruction/ available
+// for download at https://cesium.com/public/learn/Bridge.zip
+// Place it in the the same directory as this script.
+const input = "Bridge.zip";
 
 // The name of the asset that you want to create
-const name = "Test Script";
-
-// The base URL of the API. Leave this as-is unless using self hosted.
-const apiBase = "https://api.ion.cesium.com";
+const name = "Sample Bridge";
 
 async function waitUntilReady(assetId) {
   // Issue a GET request for the metadata
-  const assetMetadataResponse = await fetch(`${apiBase}/v1/assets/${assetId}`, {
+  const assetMetadataResponse = await fetch(`https://api.ion.cesium.com/v1/assets/${assetId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
@@ -63,7 +61,7 @@ async function waitUntilReady(assetId) {
 async function main() {
   // Step 1 POST information about the data to /v1/assets
   console.log(`Creating new asset: ${name}`);
-  const response = await fetch(`${apiBase}/v1/assets`, {
+  const response = await fetch(`https://api.ion.cesium.com/v1/assets`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
