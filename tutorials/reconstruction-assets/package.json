@@ -1,0 +1,28 @@
+{
+  "name": "ion-rest-api",
+  "version": "1.0.0",
+  "description": "An example application that illustrates how to upload photo data for 3D reconstruction to Cesium ion using Node.js. For a full walk-through of this example, see https://cesium.com/docs/tutorials/rest-api/.",
+  "homepage": "https://cesium.com",
+  "license": "Apache-2.0",
+  "author": "Bentley Systems, Inc. (https://www.bentley.com)",
+  "keywords": [
+    "cesium",
+    "ion",
+    "3d",
+    "gis",
+    "geospatial",
+    "gltf"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CesiumGS/cesium-ion-rest-api-examples"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.864.0",
+    "@aws-sdk/lib-storage": "^3.864.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "main": "index.js"
+}
